@@ -1,17 +1,25 @@
 <style>
-    #reg{
-        color: grey;
+    #background{
+        background-image: url("./static/za.jpg");
+        height:100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #form{
+        margin-top:10%;
+        background-color:rgba(116, 115, 115, 0.521);
+        border-radius: 3%;
     }
 </style>
 
 {% extends "base.html" %}
 
 {% block body %}
-
+<div id ="background">
 <div class="row justify-content-center">
-    <div class="col-lg-6 col-sm-10">
+    <div id ="form" class="col-lg-6 col-sm-10">
         <h1 id="reg" class="text-center">Registration</h1>
-        <form id="resister" action="{% url 'register' %}", method="POST">
+        <form id="register" action="{% url 'register' %}", method="POST">
         {% csrf_token %}
             <div class="form-group">
                 <label>Username</label>
@@ -36,6 +44,7 @@
             <h5 id="message" class="text-center">{{ message }}</h5>
         {% endif %}
     </div>
+</div>
 </div>
 
 {% endblock %}

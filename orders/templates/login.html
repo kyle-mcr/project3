@@ -1,6 +1,21 @@
 <style>
-    #login{
-        color: grey;
+    #background{
+        background-image: url("./static/za.jpg");
+        height:100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #form{
+        margin-top:10%;
+        background-color:rgba(116, 115, 115, 0.521);
+        border-radius: 3%;
+    }
+    .card{
+        margin-bottom:2%;
+        background-color:rgba(116, 115, 115, 0.521);
+    }
+    #message{
+        color: yellow;
     }
 </style>
 
@@ -9,8 +24,9 @@
 
    
    {% block body %}
+   <div id="background">
    <div class="row justify-content-center">
-    <div class="col-lg-6 col-sm-10">
+    <div id="form" class="col-lg-6 col-sm-10">
         <h1 id="login" class="text-center">Login</h1>
         <form id="login" action="{% url 'login' %}", method="POST">
         {% csrf_token %}
@@ -38,6 +54,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 {% endblock %}
