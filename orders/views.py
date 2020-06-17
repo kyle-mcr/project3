@@ -14,15 +14,29 @@ def index(request):
     return render(request, "user.html", context)
 
 def login_view(request):
-    email = request.POST["email"]
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user = authenticate(request, email=email, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
+    
+    if request.method == 'GET':
+        return render(request, 'login.html', {"message": None})
+
+    username = request.POST['username']
+    password = request.POST['password']
+
+    # Server-side form validation
+    if not username:
+        return render(request, 'login.html', {"message": "No username."})
+    elif len(username) < 4:
+        return render(request, 'login.html', {"message": "Username should be longer than 4 characters."})
+    elif not password:
+        return render(request, 'login.html', {"message": "Type your password."})
     else:
-        return render(request, "login.html", {"message": "Invalid credentials"})
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            return render(request, 'login.html', {"message": "Login failed."})
 
 def register_view(request):
     if request.method == 'GET':
