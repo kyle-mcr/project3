@@ -90,7 +90,10 @@ def register_view(request):
         except:
             return render(request, 'register.html', {"message": "Registration failed."})
 
-    return HttpResponseRedirect(reverse('login'))
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+    return HttpResponseRedirect(reverse('index'))
 
 def logout_view(request):
     logout(request)
