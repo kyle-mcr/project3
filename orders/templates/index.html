@@ -1,4 +1,51 @@
+<style>
+h2{
+    text-align:center;
+    font-size: 29pt;
+    font-family:sans-serif;
+    color: #444649;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-left:15%;
+  background-color: rgba(128, 128, 128, 0.733);
+}
+
+td, th {
+  border: 1px solid #ddddddb0;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #ddddddb7;
+}
+#linking {
+  background-color: rgb(36, 180, 0);
+  color: white;
+  border-radius:5px;
+  padding: .3em .3em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#linking:hover {
+  background-color: rgb(111, 255, 75);
+}
+
+#linking:active {
+  background-color: black;
+}
+
+#linking:visited {
+  background-color: #ccc;
+}
+</style>
 {% extends "layout.html" %}
 
 {% block title %}
@@ -6,15 +53,27 @@ Menu
 {% endblock %}
 
 {% block body %}
-<h1>Menu</h1>
+<div id="background"></div>
 {% for type, names in types.items %}
     <h2>{{type}}</h2>
-    <ul>
-        {% for name, objects in names.items %}
-        <li>{{name}} - {% for object in objects %}
-            <a href="add/{{object.id}}">{{object.size}}  : {{object.prize}}</a>,
-            {% endfor %}</li>
+<table style="width:70%">
+    
+    <tr>
+      <th>Item</th>
+      <th>Size</th>
+      <th>Item</th>
+      <th>Size</th>
+    </tr>
+    {% for name, objects in names.items %}
+    <tr>
+    {% for object in objects %}
+      <td>{{name}}</td>
+      <td><a id="linking" href="add/{{object.id}}">{{object.size}}  : ${{object.prize}}</a>
         {% endfor %}
-    </ul>
+    {% endfor %}</td>
+    </tr>
+  </table>
+    
 {% endfor %}
+</div>
 {% endblock %}
